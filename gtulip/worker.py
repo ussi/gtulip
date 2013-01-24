@@ -143,23 +143,20 @@ class HTTPHandler:
 
             self.nr += 1
             respiter = self.wsgi(environ, resp.start_response)
-            orig = respiter
             if (inspect.isgenerator(respiter) or
                 inspect.isgeneratorfunction(respiter)):
                 respiter = yield from respiter
 
             try:
-                if isinstance(respiter, environ['wsgi.file_wrapper']):
-                    resp.write_file(respiter)
-                else:
-                    for item in respiter:
-                        if isinstance(item, tulip.Future):
-                            if not data.done():
-                                item = yield from data
-                            else:
-                                item = data.result()
+                # TODO: use resp.write_file for wsgi.file_wrapper
+                for item in respiter:
+                    if isinstance(item, tulip.Future):
+                        if not data.done():
+                            item = yield from data
+                        else:
+                            item = data.result()
 
-                        resp.write(item)
+                    resp.write(item)
 
                 if not environ['tulip.closed']:
                     resp.close()
