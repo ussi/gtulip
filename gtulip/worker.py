@@ -37,9 +37,7 @@ class TulipWorker(base.Worker):
 
         # insert sockets to event_loop
         for sock in self.sockets:
-            sock.setblocking(False)
-            self.ev_loop.add_reader(
-                sock.fileno(), self.ev_loop._accept_connection, factory, sock)
+            self.ev_loop.start_serving(factory, sock=sock)
 
         # If our parent changed then we shut down.
         pid = os.getpid()
