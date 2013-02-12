@@ -29,7 +29,8 @@ class TulipWorker(base.Worker):
         super().init_process()
 
     def run(self):
-        return self.ev_loop.run_until_complete(tulip.Task(self._run()))
+        tulip.Task(self._run())
+        return self.ev_loop.run_forever()
 
     def _run(self):
         def factory():
