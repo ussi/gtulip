@@ -3,13 +3,14 @@ import sys
 import logging
 from setuptools import setup, find_packages
 
-version='0.1'
+version = '0.1'
 
 install_requires = ['setuptools',
                     'gunicorn >= 0.17.2',
                     ]
 
 tests_require = install_requires + ['nose']
+
 
 def read(f):
     return open(os.path.join(os.path.dirname(__file__), f)).read().strip()
@@ -40,6 +41,6 @@ setup(name='gtulip',
       entry_points = {
           'paste.server_runner': [
               'server = gtulip.paster:tulip_server_runner',
-              ],
-          },
-      )
+          ],
+      },
+)

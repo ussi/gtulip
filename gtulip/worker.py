@@ -121,7 +121,7 @@ class HTTPHandler:
         except gerrors.NoMoreData as e:
             self.log.debug("Ignored premature client disconnection. %s", e)
         except Exception as e:
-            self.worker.handle_error(req, self.transport_wrp, ['',''], e)
+            self.worker.handle_error(req, self.transport_wrp, ['', ''], e)
         finally:
             self.task = None
 
@@ -172,7 +172,7 @@ class HTTPHandler:
 
         except Exception as e:
             # Only send back traceback in HTTP in debug mode.
-            self.worker.handle_error(req, self.transport_wrp, ['',''], e)
+            self.worker.handle_error(req, self.transport_wrp, ['', ''], e)
 
         finally:
             if resp is not None:
