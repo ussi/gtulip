@@ -150,10 +150,10 @@ class HTTPHandler:
                 # TODO: use resp.write_file for wsgi.file_wrapper
                 for item in respiter:
                     if isinstance(item, tulip.Future):
-                        if not data.done():
-                            item = yield from data
+                        if not item.done():
+                            item = yield from item
                         else:
-                            item = data.result()
+                            item = item.result()
 
                     resp.write(item)
 

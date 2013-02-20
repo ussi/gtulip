@@ -43,4 +43,4 @@ setup(name='gtulip',
               'server = gtulip.paster:tulip_server_runner',
           ],
       },
-)
+  )
