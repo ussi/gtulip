@@ -29,12 +29,14 @@ class TulipWorker(base.Worker):
         super().init_process()
 
     def run(self):
-        tulip.Task(self._run())
+        self._run()
         return self.ev_loop.run_forever()
 
+    @tulip.task
     def _run(self):
         def factory():
-            return httpclient.WSGIServerHttpProtocol(self.wsgi)
+            return tulip.http.WSGIServerHttpProtocol(
+                self.wsgi, readpayload=True)
 
         # insert sockets to event_loop
         for sock in self.sockets:
