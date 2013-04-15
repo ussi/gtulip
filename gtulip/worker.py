@@ -4,17 +4,11 @@
 # See the NOTICE for more information.
 #
 
-import io
 import os
-import urllib.parse
-from datetime import datetime
-
 import tulip
-import httpclient
+import tulip.http
 
-import gunicorn.http.wsgi as wsgi
 import gunicorn.workers.base as base
-import gunicorn.http.errors as gerrors
 
 
 class TulipWorker(base.Worker):
